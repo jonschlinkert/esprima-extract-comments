@@ -16,8 +16,8 @@ describe('.parseFiles():', function () {
     var actual = extract('fixtures/**/*.js');
 
     actual.should.be.an.object;
-    assert.equal(Object.keys(actual).length > 1, true);
-    actual.should.have.property('fixtures/assemble.js');
+    assert.equal(Object.keys(actual).length === 1, true);
+    actual.should.have.property('assemble');
   });
 });
 
