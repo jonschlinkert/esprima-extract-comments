@@ -1,7 +1,7 @@
 {
   "name": "esprima-extract-comments",
   "description": "Extract code comments from string or from a glob of files using esprima.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/jonschlinkert/esprima-extract-comments",
   "author": {
     "name": "Jon Schlinkert",
@@ -44,7 +44,7 @@
     "should": "^4.0.4"
   },
   "dependencies": {
-    "esprima": "git+https://git@github.com/ariya/esprima",
+    "esprima": "^2.7.0",
     "lodash": "^2.4.1",
     "map-files": "^0.2.2"
   }
