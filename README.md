@@ -3,122 +3,102 @@
 > Extract code comments from string or from a glob of files using esprima.
 
 ## Install
-### Install with [npm](npmjs.org):
 
-```bash
-npm i esprima-extract-comments --save-dev
-```
-
-## Run tests
-
-Run
-
-```bash
-npm test
+```sh
+$ npm i esprima-extract-comments --save-dev
 ```
 
 ## API
-### [extract](index.js#L32)
 
-Extract code comments from a glob of files:
-
-* `patterns` **{String}**: Glob patterns to used.    
-* `options` **{Object}**: Options to pass to [esprima] or [globby], or [map-files].    
-* `returns` **{Object}**: Object of code comments.  
-
-**Example:**
-
-```js
-var extract = require('esprima-extract-comments');
-extract('lib/*.js');
-```
-
-### [.fromString](index.js#L62)
+### [extract](index.js#L26)
 
 Extract code comments from the given `string`.
 
-* `string` **{String}**    
-* `options` **{Object}**: Options to pass to esprima.    
-* `returns` **{Object}**: Object of code comments.  
+**Params**
 
-**Example:**
+* `string` **{String}**
+* `options` **{Object}**: Options to pass to esprima.
+* `returns` **{Object}**: Object of code comments.
+
+**Example**
 
 ```js
 var extract = require('esprima-extract-comments');
-extract.fromString('// this is a code comment');
+extract('// this is a code comment');
 ```
-
-
-You may also pass a custom `rename` function on the options to change the key of each object returned. See [map-files](https://github.com/jonschlinkert/map-files) for more details and available options.
 
 ## Example results
 
-```js
-{ 'test/fixtures/assemble.js':
-   [ { type: 'Block',
-       value: '!\n * assemble <https://github.com/assemble/assemble>\n *\n * Copyright (c) 2014 Jon Schlinkert, Brian Woodward, contributors.\n * Licensed under the MIT license.\n ',
-       loc: { start: { line: 1, column: 0 }, end: { line: 6, column: 3 } } },
-     { type: 'Line',
-       value: ' Module dependencies',
-       loc:
-        { start: { line: 10, column: 0 },
-          end: { line: 10, column: 22 } } },
-     { type: 'Line',
-       value: ' Local modules.',
-       loc:
-        { start: { line: 39, column: 0 },
-          end: { line: 39, column: 17 } } },
-     { type: 'Line',
-       value: ' Plugins and middleware',
-       loc:
-        { start: { line: 44, column: 0 },
-          end: { line: 44, column: 25 } } },
-     { type: 'Block',
-       value: '*\n * Set the current working directory for all paths.\n * Default is `process.cwd()`, this does not need to\n * be changed unless you require something different.\n *\n * ```js\n * assemble.cwd(\'bench\');\n * ```\n *\n * @param  {String|Array} `args` File path or paths.\n * @return {String}\n * @api public\n ',
-       loc:
-        { start: { line: 414, column: 0 },
-          end: { line: 426, column: 3 } } },
-```
-Or when `extract.fromString()` is used:
+See [fixtures/app.js](./fixtures/app.js) to see the code comments used to generate the following:
 
 ```js
-{ type: 'Block',
-     value: '!\n * assemble <https://github.com/assemble/assemble>\n *\n * Copyright (c) 2014 Jon Schlinkert, Brian Woodward, contributors.\n * Licensed under the MIT license.\n ',
-     loc: { start: { line: 1, column: 0 }, end: { line: 6, column: 3 } } },
-   { type: 'Line',
-     value: ' Module dependencies',
-     loc:
-      { start: { line: 10, column: 0 },
-        end: { line: 10, column: 22 } } },
-   { type: 'Line',
-     value: ' Local modules.',
-     loc:
-      { start: { line: 39, column: 0 },
-        end: { line: 39, column: 17 } } },
-   { type: 'Line',
-     value: ' Plugins and middleware',
-     loc:
-      { start: { line: 44, column: 0 },
-        end: { line: 44, column: 25 } } }
+[{
+  type: 'Block',
+  value: '*\n * Create an instance of App with `options`
+    .\n *\n * @param {Object} options\n * @api public\n ',
+  loc: {
+    start: {line: 3, column: 0 },
+    end: {line: 8, column: 3 }
+  }
+}, {
+  type: 'Block',
+  value: '*\n * Set `key` on cache with the given `value`
+    \n *\n * @param {String} `key`\n * @param {any} 
+    `value`\n * @api public\n ',
+  loc: {
+    start: {line: 15, column: 0 },
+    end: {line: 21, column: 3 }
+  }
+}, {
+  type: 'Block',
+  value: '*\n * Get `key` from cache.\n *\n * @param 
+    {String} `key`\n * @api public\n ',
+  loc: {
+    start: {line: 25, column: 0 },
+    end: {line: 30, column: 3 }
+  }
+}, {
+  type: 'Block',
+  value: '*\n * Delete `key` from cache\n *\n * 
+    @param {String} `key`\n * @param {any} value\n * 
+    @api public\n ',
+  loc: {
+    start: {line: 34, column: 0 },
+    end: {line: 40, column: 3 }
+  }
+}]
 ```
 
+## Related projects
+
+* [extract-comments](https://www.npmjs.com/package/extract-comments): Extract code comments from string or from a glob of files. | [homepage](https://github.com/jonschlinkert/extract-comments)
+* [js-comments](https://www.npmjs.com/package/js-comments): Parse JavaScript code comments and generate API documentation. | [homepage](https://github.com/jonschlinkert/js-comments)
+* [parse-comments](https://www.npmjs.com/package/parse-comments): Parse code comments from JavaScript or any language that uses the same format. | [homepage](https://github.com/jonschlinkert/parse-comments)
+
+## Running tests
+
+Install dev dependencies:
+
+```sh
+$ npm i -d && npm test
+```
+
+## Contributing
+
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/jonschlinkert/esprima-extract-comments/issues/new).
 
 ## Author
 
 **Jon Schlinkert**
- 
+
 + [github/jonschlinkert](https://github.com/jonschlinkert)
-+ [twitter/jonschlinkert](http://twitter.com/jonschlinkert) 
++ [twitter/jonschlinkert](http://twitter.com/jonschlinkert)
 
 ## License
-Copyright (c) 2014 Jon Schlinkert  
-Released under the MIT license
+
+Copyright © 2015 Jon Schlinkert
+Released under the MIT license.
 
 ***
 
-_This file was generated by [verb](https://github.com/assemble/verb) on November 27, 2014._
-
-
-[globby]: https://github.com/sindresorhus/globby
-[esprima]: https://github.com/ariya/esprima
-[map-files]: https://github.com/jonschlinkert/map-files
+_This file was generated by [verb-cli](https://github.com/assemble/verb-cli) on November 10, 2015._
