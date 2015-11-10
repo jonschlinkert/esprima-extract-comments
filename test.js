@@ -11,13 +11,24 @@ var assert = require('assert');
 var should = require('should');
 var extract = require('./');
 
-describe('.parseFiles():', function () {
+describe('extract comments:', function () {
   it('should read each file as a string and extract comments from the code.', function () {
     var actual = extract('fixtures/**/*.js');
 
     actual.should.be.an.object;
     assert.equal(Object.keys(actual).length === 1, true);
     actual.should.have.property('assemble');
+  });
+});
+
+
+describe('.fromString():', function () {
+  it('should read each file as a string and extract comments from the code.', function () {
+    var actual = extract.fromString('foo /* bar */\nbaz');
+
+    // actual.should.be.an.object;
+    // assert.equal(Object.keys(actual).length === 1, true);
+    // actual.should.have.property('assemble');
   });
 });
 

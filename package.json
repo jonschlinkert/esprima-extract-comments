@@ -3,49 +3,39 @@
   "description": "Extract code comments from string or from a glob of files using esprima.",
   "version": "0.1.2",
   "homepage": "https://github.com/jonschlinkert/esprima-extract-comments",
-  "author": {
-    "name": "Jon Schlinkert",
-    "url": "https://github.com/jonschlinkert"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jonschlinkert/esprima-extract-comments.git"
-  },
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/esprima-extract-comments",
   "bugs": {
     "url": "https://github.com/jonschlinkert/esprima-extract-comments/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/jonschlinkert/esprima-extract-comments/blob/master/LICENSE-MIT"
-    }
-  ],
-  "keywords": [
-    "code",
-    "parse",
-    "javascript",
-    "block",
-    "context",
-    "comments",
-    "comment",
-    "extract",
-    "esprima",
-    "glob"
+  "license": "MIT",
+  "files": [
+    "index.js"
   ],
   "main": "index.js",
   "engines": {
     "node": ">=0.8"
   },
   "scripts": {
-    "test": "mocha -R spec"
-  },
-  "devDependencies": {
-    "mocha": "~1.18.2",
-    "should": "^4.0.4"
+    "test": "mocha"
   },
   "dependencies": {
-    "esprima": "git+https://git@github.com/ariya/esprima",
-    "lodash": "^2.4.1",
-    "map-files": "^0.2.2"
-  }
+
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "keywords": [
+    "block",
+    "code",
+    "comment",
+    "comments",
+    "context",
+    "esprima",
+    "extract",
+    "glob",
+    "javascript",
+    "parse"
+  ]
 }

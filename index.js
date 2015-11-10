@@ -10,8 +10,6 @@
 var fs = require('fs');
 var esprima = require('esprima');
 var mapFiles = require('map-files');
-var _ = require('lodash');
-
 
 /**
  * Extract code comments from a glob of files:
@@ -61,7 +59,9 @@ function extract(patterns, options) {
 
 extract.fromString = function(string, options) {
   var opts = _.extend({comment: true, loc: true }, options);
-  return esprima.parse(string, opts).comments;
+  var res = esprima.parse(string, opts);
+  console.log(res.comments[0])
+  return res.comments;
 };
 
 
