@@ -1,34 +1,28 @@
-/*!
- * esprima-extract-comments <https://github.com/jonschlinkert/esprima-extract-comments>
- *
- * Copyright (c) 2014 Jon Schlinkert, contributors.
- * Licensed under the MIT license.
- */
-
 'use strict';
 
+var fs = require('fs');
+var util = require('util');
 var assert = require('assert');
-var should = require('should');
 var extract = require('./');
 
-describe('extract comments:', function () {
-  it('should read each file as a string and extract comments from the code.', function () {
-    var actual = extract('fixtures/**/*.js');
+function read(fp) {
+  return fs.readFileSync('fixtures/' + fp, 'utf8');
+}
 
-    actual.should.be.an.object;
-    assert.equal(Object.keys(actual).length === 1, true);
-    actual.should.have.property('assemble');
+describe('extract comments', function () {
+  it('should expose a function as the main export', function() {
+    assert(typeof extract === 'function');
   });
-});
 
+  it('should extract line comments', function() {
+    var comments = extract('foo // bar');
+    assert(Array.isArray(comments));
+    assert.equal(comments.length, 1);
+  });
 
-describe('.fromString():', function () {
-  it('should read each file as a string and extract comments from the code.', function () {
-    var actual = extract.fromString('foo /* bar */\nbaz');
-
-    // actual.should.be.an.object;
-    // assert.equal(Object.keys(actual).length === 1, true);
-    // actual.should.have.property('assemble');
+  it('should extract block comments', function() {
+    var comments = util.inspect(extract(read('app.js')), null, 10);
+    assert(comments.length > 1);
   });
 });
 
