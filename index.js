@@ -7,7 +7,6 @@
 
 'use strict';
 
-var extend = require('extend-shallow');
 var esprima = require('esprima');
 
 /**
@@ -23,7 +22,14 @@ var esprima = require('esprima');
  * @api public
  */
 
-module.exports = function extract(string, options) {
-  var opts = extend({comment: true, loc: true }, options);
-  return esprima.parse(string, opts).comments;
+module.exports = function(str) {
+  var ast = esprima.parse(str, {
+    tolerant: true,
+    comment: true,
+    tokens: true,
+    range: true,
+    loc: true
+  });
+
+  return ast.comments;
 };
