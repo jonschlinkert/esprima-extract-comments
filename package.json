@@ -1,7 +1,7 @@
 {
   "name": "esprima-extract-comments",
   "description": "Extract code comments from string or from a glob of files using esprima.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/jonschlinkert/esprima-extract-comments",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/esprima-extract-comments",
@@ -20,8 +20,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "esprima": "^2.7.0",
-    "extend-shallow": "^2.0.1"
+    "esprima": "^2.7.1"
   },
   "keywords": [
     "block",
@@ -39,9 +38,12 @@
     "related": {
       "list": [
         "extract-comments",
-        "parse-comments",
-        "js-comments"
+        "js-comments",
+        "parse-comments"
       ]
-    }
+    },
+    "plugins": [
+      "gulp-format-md"
+    ]
   }
 }
