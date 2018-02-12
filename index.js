@@ -7,29 +7,66 @@
 
 'use strict';
 
-var esprima = require('esprima');
+const fs = require('fs');
+const path = require('path');
+const esprima = require('esprima');
 
 /**
- * Extract code comments from the given `string`.
+ * Extract line and block comments from the given `string` of JavaScript.
  *
  * ```js
- * var extract = require('esprima-extract-comments');
- * extract('// this is a code comment');
+ * const extract = require('esprima-extract-comments');
+ * console.log(extract('// this is a line comment'));
+ * // [ { type: 'Line',
+ * //     value: ' this is a line comment',
+ * //     range: [ 0, 25 ],
+ * //     loc: { start: { line: 1, column: 0 }, end: { line: 1, column: 25 } } } ]
  * ```
  * @param  {String} `string`
- * @param  {Object} `options` Options to pass to esprima.
- * @return {Object} Object of code comments.
+ * @param  {Object} `options` Options to pass to [esprima][].
+ * @return {Array} Array of code comment objects.
  * @api public
  */
 
-module.exports = function(str) {
-  var ast = esprima.parse(str, {
-    tolerant: true,
-    comment: true,
-    tokens: true,
-    range: true,
-    loc: true
-  });
+function extract(str, options) {
+  const defaults = { tolerant: true, comment: true, tokens: true, range: true, loc: true };
+  const tokens = esprima.tokenize(str, Object.assign({}, defaults, options));
+  return tokens.filter(isComment);
+}
 
-  return ast.comments;
+/**
+ * Extract code comments from the given JavaScript `file`.
+ *
+ * ```js
+ * const extract = require('esprima-extract-comments');
+ * console.log(extract.file('some-file.js'), { cwd: 'some/path' });
+ * // [ { type: 'Line',
+ * //     value: ' this is a line comment',
+ * //     range: [ 0, 25 ],
+ * //     loc: { start: { line: 1, column: 0 }, end: { line: 1, column: 25 } } } ]
+ * ```
+ * @param  {String} `file` Filepath to the file to parse.
+ * @param  {Object} `options` Options to pass to [esprima][].
+ * @return {Array} Array of code comment objects.
+ * @api public
+ */
+
+extract.file = function(file, options) {
+  const opts = Object.assign({ cwd: process.cwd() }, options);
+  const str = fs.readFileSync(path.resolve(opts.cwd, file), 'utf8');
+  return extract(str, options);
 };
+
+/**
+ * Returns true if `token` is a valid comment token
+ */
+
+function isComment(token) {
+  return token.type === 'LineComment' || token.type === 'BlockComment';
+}
+
+/**
+ * Expose `extract`
+ */
+
+module.exports = extract;
