@@ -1,102 +1,126 @@
-# esprima-extract-comments [![NPM version](https://img.shields.io/npm/v/esprima-extract-comments.svg)](https://www.npmjs.com/package/esprima-extract-comments) [![Build Status](https://img.shields.io/travis/jonschlinkert/esprima-extract-comments.svg)](https://travis-ci.org/jonschlinkert/esprima-extract-comments)
+# esprima-extract-comments [![NPM version](https://img.shields.io/npm/v/esprima-extract-comments.svg?style=flat)](https://www.npmjs.com/package/esprima-extract-comments) [![NPM monthly downloads](https://img.shields.io/npm/dm/esprima-extract-comments.svg?style=flat)](https://npmjs.org/package/esprima-extract-comments) [![NPM total downloads](https://img.shields.io/npm/dt/esprima-extract-comments.svg?style=flat)](https://npmjs.org/package/esprima-extract-comments) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/esprima-extract-comments.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/esprima-extract-comments)
 
 > Extract code comments from string or from a glob of files using esprima.
+
+Please consider following this project's author, [Jon Schlinkert](https://github.com/jonschlinkert), and consider starring the project to show your :heart: and support.
 
 ## Install
 
 Install with [npm](https://www.npmjs.com/):
 
 ```sh
-$ npm i esprima-extract-comments --save
+$ npm install --save esprima-extract-comments
+```
+
+## Breaking changes in v1.0.0!
+
+* line `comment.type` was changed from `line` to `LineComment`
+* block `comment.type` was changed from `block` to `BlockComment`
+
+## Usage
+
+Add to your Node.js/JavaScript project with the following line of code:
+
+```js
+const extract = require('esprima-extract-comments');
 ```
 
 ## API
 
+### [extract](index.js#L30)
+
+Extract line and block comments from a string of JavaScript.
+
 **Params**
 
 * `string` **{String}**
-* `options` **{Object}**: Options to pass to esprima.
-* `returns` **{Object}**: Object of code comments.
+* `options` **{Object}**: Options to pass to [esprima](http://esprima.org).
+* `returns` **{Array}**: Array of code comment objects.
 
 **Example**
 
 ```js
-var extract = require('esprima-extract-comments');
-extract('// this is a code comment');
+console.log(extract('// this is a line comment'));
+// [ { type: 'Line',
+//     value: ' this is a line comment',
+//     range: [ 0, 25 ],
+//     loc: { start: { line: 1, column: 0 }, end: { line: 1, column: 25 } } } ]
 ```
 
-## Example results
+### [.file](index.js#L52)
 
-See [fixtures/app.js](./fixtures/app.js) to see the code comments used to generate the following:
+Extract code comments from a JavaScript file.
+
+**Params**
+
+* `file` **{String}**: Filepath to the file to parse.
+* `options` **{Object}**: Options to pass to [esprima](http://esprima.org).
+* `returns` **{Array}**: Array of code comment objects.
+
+**Example**
 
 ```js
-[{
-  type: 'Block',
-  value: '*\n * Create an instance of App with `options`
-    .\n *\n * @param {Object} options\n * @api public\n ',
-  loc: {
-    start: {line: 3, column: 0 },
-    end: {line: 8, column: 3 }
-  }
-}, {
-  type: 'Block',
-  value: '*\n * Set `key` on cache with the given `value`
-    \n *\n * @param {String} `key`\n * @param {any} 
-    `value`\n * @api public\n ',
-  loc: {
-    start: {line: 15, column: 0 },
-    end: {line: 21, column: 3 }
-  }
-}, {
-  type: 'Block',
-  value: '*\n * Get `key` from cache.\n *\n * @param 
-    {String} `key`\n * @api public\n ',
-  loc: {
-    start: {line: 25, column: 0 },
-    end: {line: 30, column: 3 }
-  }
-}, {
-  type: 'Block',
-  value: '*\n * Delete `key` from cache\n *\n * 
-    @param {String} `key`\n * @param {any} value\n * 
-    @api public\n ',
-  loc: {
-    start: {line: 34, column: 0 },
-    end: {line: 40, column: 3 }
-  }
-}]
+console.log(extract.file('some-file.js'), { cwd: 'some/path' });
+// [ { type: 'Line',
+//     value: ' this is a line comment',
+//     range: [ 0, 25 ],
+//     loc: { start: { line: 1, column: 0 }, end: { line: 1, column: 25 } } } ]
 ```
 
-## Related projects
+## About
 
-* [extract-comments](https://www.npmjs.com/package/extract-comments): Extract code comments from string or from a glob of files. | [homepage](https://github.com/jonschlinkert/extract-comments)
-* [js-comments](https://www.npmjs.com/package/js-comments): Parse JavaScript code comments and generate API documentation. | [homepage](https://github.com/jonschlinkert/js-comments)
-* [parse-comments](https://www.npmjs.com/package/parse-comments): Parse code comments from JavaScript or any language that uses the same format. | [homepage](https://github.com/jonschlinkert/parse-comments)
+<details>
+<summary><strong>Contributing</strong></summary>
 
-## Running tests
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](../../issues/new).
 
-Install dev dependencies:
+</details>
+
+<details>
+<summary><strong>Running Tests</strong></summary>
+
+Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:
 
 ```sh
-$ npm i -d && npm test
+$ npm install && npm test
 ```
 
-## Contributing
+</details>
 
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/jonschlinkert/esprima-extract-comments/issues/new).
+<details>
+<summary><strong>Building docs</strong></summary>
 
-## Author
+_(This project's readme.md is generated by [verb](https://github.com/verbose/verb-generate-readme), please don't edit the readme directly. Any changes to the readme must be made in the [.verb.md](.verb.md) readme template.)_
+
+To generate the readme, run the following command:
+
+```sh
+$ npm install -g verbose/verb#dev verb-generate-readme && verb
+```
+
+</details>
+
+### Related projects
+
+You might also be interested in these projects:
+
+* [extract-comments](https://www.npmjs.com/package/extract-comments): Uses esprima to extract line and block comments from a string of JavaScript. Also optionally… [more](https://github.com/jonschlinkert/extract-comments) | [homepage](https://github.com/jonschlinkert/extract-comments "Uses esprima to extract line and block comments from a string of JavaScript. Also optionally parses code context (the next line of code after a comment).")
+* [js-comments](https://www.npmjs.com/package/js-comments): Parse JavaScript code comments and generate API documentation. | [homepage](https://github.com/jonschlinkert/js-comments "Parse JavaScript code comments and generate API documentation.")
+* [parse-comments](https://www.npmjs.com/package/parse-comments): Parse code comments from JavaScript or any language that uses the same format. | [homepage](https://github.com/jonschlinkert/parse-comments "Parse code comments from JavaScript or any language that uses the same format.")
+
+### Author
 
 **Jon Schlinkert**
 
+* [linkedin/in/jonschlinkert](https://linkedin.com/in/jonschlinkert)
 * [github/jonschlinkert](https://github.com/jonschlinkert)
-* [twitter/jonschlinkert](http://twitter.com/jonschlinkert)
+* [twitter/jonschlinkert](https://twitter.com/jonschlinkert)
 
-## License
+### License
 
-Copyright © 2015 [Jon Schlinkert](https://github.com/jonschlinkert)
-Released under the MIT license.
+Copyright © 2018, [Jon Schlinkert](https://github.com/jonschlinkert).
+Released under the [MIT License](LICENSE).
 
 ***
 
-_This file was generated by [verb](https://github.com/verbose/verb) on December 30, 2015._
+_This file was generated by [verb-generate-readme](https://github.com/verbose/verb-generate-readme), v0.6.0, on February 12, 2018._
