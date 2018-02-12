@@ -1,8 +1,8 @@
 /*!
  * esprima-extract-comments <https://github.com/jonschlinkert/esprima-extract-comments>
  *
- * Copyright (c) 2014 Jon Schlinkert, contributors.
- * Licensed under the MIT license.
+ * Copyright (c) 2014-2018, Jon Schlinkert.
+ * Released under the MIT License.
  */
 
 'use strict';

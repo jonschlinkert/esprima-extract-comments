@@ -22,6 +22,10 @@
   "dependencies": {
     "esprima": "^2.7.1"
   },
+  "devDependencies": {
+    "gulp-format-md": "^0.1.4",
+    "mocha": "^3.5.3"
+  },
   "keywords": [
     "block",
     "code",
