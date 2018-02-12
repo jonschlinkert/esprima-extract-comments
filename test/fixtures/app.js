@@ -1,5 +1,7 @@
 'use strict';
 
+This is not valid
+
 /**
  * Create an instance of App with `options`.
  *
@@ -20,6 +22,7 @@ function App(options) {
  * @api public
  */
 
+// this is a line comment
 App.prototype.set = function(key, value) {};
 
 /**

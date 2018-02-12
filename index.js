@@ -12,10 +12,9 @@ const path = require('path');
 const esprima = require('esprima');
 
 /**
- * Extract line and block comments from the given `string` of JavaScript.
+ * Extract line and block comments from a string of JavaScript.
  *
  * ```js
- * const extract = require('esprima-extract-comments');
  * console.log(extract('// this is a line comment'));
  * // [ { type: 'Line',
  * //     value: ' this is a line comment',
@@ -35,10 +34,9 @@ function extract(str, options) {
 }
 
 /**
- * Extract code comments from the given JavaScript `file`.
+ * Extract code comments from a JavaScript file.
  *
  * ```js
- * const extract = require('esprima-extract-comments');
  * console.log(extract.file('some-file.js'), { cwd: 'some/path' });
  * // [ { type: 'Line',
  * //     value: ' this is a line comment',
