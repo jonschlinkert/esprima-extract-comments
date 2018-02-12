@@ -5,23 +5,39 @@ const path = require('path');
 const util = require('util');
 const assert = require('assert');
 const extract = require('..');
-const read = (name) => fs.readFileSync(path.join(__dirname, `fixtures/${name}`), 'utf8');
+const read = name => fs.readFileSync(path.join(__dirname, `fixtures/${name}`), 'utf8');
 
-describe('extract comments', function() {
+function isBlock(c) {
+  return c.type === 'BlockComment';
+}
+function isLine(c) {
+  return c.type === 'LineComment';
+}
+
+describe('esprima-extract-comments', function() {
   describe('main export', function() {
     it('should extract line comments', function() {
       const comments = extract('foo // bar');
       assert(Array.isArray(comments));
-      assert.equal(comments.filter(c => c.type === 'LineComment').length, 1);
+      assert.equal(comments.filter(isLine).length, 1);
+      assert.equal(comments.filter(isLine)[0].value, ' bar');
     });
 
     it('should extract block comments', function() {
       const comments = extract(read('app.js'));
-      assert(comments.filter(c => c.type === 'BlockComment').length > 1);
+      assert(comments.filter(isBlock).length > 1);
+    });
+
+    it('should extract line and block comments', function() {
+      const str = fs.readFileSync(path.join(__dirname, '../index.js'), 'utf8');
+      const comments = extract(str);
+      assert(Array.isArray(comments));
+      assert(comments.length >= 1);
+      assert(/esprima-extract-comments/.test(comments[0].value));
     });
 
     it('should extract complex comments', function() {
-      const comments = extract(read('angular.js'));
+      const comments = extract(read('angular.js'), { allowReturnOutsideFunction: true });
       assert.equal(comments[comments.length - 1].loc.start.line, 29702);
     });
   });
@@ -29,12 +45,12 @@ describe('extract comments', function() {
   describe('.file', function() {
     it('should extract block comments from a file', function() {
       const comments = extract.file('app.js', { cwd: path.join(__dirname, 'fixtures') });
-      assert(comments.filter(c => c.type === 'BlockComment').length > 1);
+      assert(comments.filter(isBlock).length > 1);
     });
 
     it('should extract line comments from a file', function() {
       const comments = extract.file('app.js', { cwd: path.join(__dirname, 'fixtures') });
-      assert(comments.filter(c => c.type === 'LineComment').length >= 1);
+      assert(comments.filter(isLine).length >= 1);
     });
   });
 });
