@@ -30,7 +30,22 @@ const esprima = require('esprima');
 function extract(str, options) {
   const defaults = { tolerant: true, comment: true, tokens: true, range: true, loc: true };
   const tokens = esprima.tokenize(str, Object.assign({}, defaults, options));
-  return tokens.filter(isComment);
+  const comments = [];
+
+  for (let i = 0; i < tokens.length; i++) {
+    let n = i + 1;
+    const token = tokens[i];
+    let next = tokens[n];
+
+    if (isComment(token)) {
+      if (token.type === 'BlockComment') {
+        while (next && /comment/i.test(next.type)) next = tokens[++n];
+        token.codeStart = next && !/(comment|punc)/i.test(next.type) ? next.range[0] : null;
+      }
+      comments.push(token);
+    }
+  }
+  return comments;
 }
 
 /**
